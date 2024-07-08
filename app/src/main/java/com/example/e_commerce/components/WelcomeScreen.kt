@@ -1,5 +1,4 @@
-
-package com.example.e_commerce
+package com.example.e_commerce.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -29,9 +28,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.e_commerce.R
 
 @Composable
-fun EzyDealsWelcomeScreen(navController: NavController) {
+fun WelcomeScreen(navController: NavController) {
     Box(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -65,7 +65,7 @@ fun EzyDealsWelcomeScreen(navController: NavController) {
                 )
                 Spacer(modifier = Modifier.height(10.dp))
                 Text(
-                    text = " EZYDEALS",
+                    text = "EZYDEALS",
                     fontSize = 40.sp,
                     fontWeight = FontWeight.Bold,
                     color = Color(0xFFFF6D3D),
@@ -89,7 +89,7 @@ fun EzyDealsWelcomeScreen(navController: NavController) {
 
                 Spacer(modifier = Modifier.height(32.dp))
                 Button(
-                    onClick = { navController.navigate("signup")},
+                    onClick = { navController.navigate("signup") },
                     colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF6D3D)),
                     shape = RoundedCornerShape(50)
                 ) {

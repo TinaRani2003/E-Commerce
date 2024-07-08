@@ -1,5 +1,4 @@
-package com.example.e_commerce
-
+package com.example.e_commerce.components
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -40,11 +39,16 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.e_commerce.R
 
 @Composable
-fun LoginScreen(navController: NavController) {
+fun SignupScreen(navController: NavController) {
+    var name by remember { mutableStateOf("") }
+    var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+    var phoneNumber by remember { mutableStateOf("") }
     var passwordVisible by remember { mutableStateOf(false) }
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -53,20 +57,20 @@ fun LoginScreen(navController: NavController) {
         Image(
             painter = painterResource(id = R.drawable.cart_image), // Replace with your background image
             contentDescription = "Background Image",
-            modifier = Modifier.fillMaxSize()
-                .alpha(0.2f)
+            modifier = Modifier
+                .fillMaxSize()
+                .alpha(0.2f) // Make the image transparent
         )
 
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center,
             modifier = Modifier
-
                 .fillMaxWidth()
-                .padding(top = 100.dp)
+                .padding(top = 50.dp)
         ) {
             Text(
-                text = "Access your",
+                text = "HEY!!!",
                 fontSize = 40.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color.Black,
@@ -74,19 +78,11 @@ fun LoginScreen(navController: NavController) {
                     textAlign = TextAlign.Center
                 )
             )
-            Spacer(modifier = Modifier.height(10.dp))
+
+            Spacer(modifier = Modifier.height(20.dp))
+
             Text(
-                text = " EZYDEALS",
-                fontSize = 40.sp,
-                fontWeight = FontWeight.Bold,
-                color = Color.Black,
-                style = TextStyle(
-                    textAlign = TextAlign.Center
-                )
-            )
-            Spacer(modifier = Modifier.height(10.dp))
-            Text(
-                text = "Perks",
+                text = "Create an account with EZYDEALS",
                 fontSize = 40.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color.Black,
@@ -95,14 +91,22 @@ fun LoginScreen(navController: NavController) {
                 )
             )
 
-
-
-
-            Spacer(modifier = Modifier.height(30.dp))
+            Spacer(modifier = Modifier.height(16.dp))
 
             OutlinedTextField(
-                value = "",
-                onValueChange = { },
+                value = name,
+                onValueChange = { name = it },
+                label = { Text("Name") },
+                modifier = Modifier.fillMaxWidth()
+                    .padding(start = 16.dp)
+                    .padding(end = 16.dp)
+            )
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            OutlinedTextField(
+                value = email,
+                onValueChange = { email = it },
                 label = { Text("Email") },
                 modifier = Modifier.fillMaxWidth()
                     .padding(start = 16.dp)
@@ -129,11 +133,21 @@ fun LoginScreen(navController: NavController) {
                     .padding(end = 16.dp)
             )
 
+            Spacer(modifier = Modifier.height(8.dp))
+
+            OutlinedTextField(
+                value = phoneNumber,
+                onValueChange = { phoneNumber = it },
+                label = { Text("Phone Number") },
+                modifier = Modifier.fillMaxWidth()
+                    .padding(start = 16.dp)
+                    .padding(end = 16.dp)
+            )
 
             Spacer(modifier = Modifier.height(32.dp))
 
             Button(
-                onClick = { },
+                onClick ={ },
                 colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF6D3D)),
                 shape = RoundedCornerShape(50),
                 modifier = Modifier.fillMaxWidth()
@@ -141,29 +155,47 @@ fun LoginScreen(navController: NavController) {
                     .padding(end = 16.dp)
             ) {
                 Text(
-                    text = "LOGIN",
+                    text = "REGISTER",
                     color = Color.White,
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Bold
                 )
             }
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(1.dp))
 
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.Center
             ) {
                 Text(
-                    text = "Don't have an account? ",
+                    text = "Already have an account? ",
                     fontSize = 16.sp,
+                    fontWeight = FontWeight.Bold,
                     color = Color.Black
                 )
                 Text(
-                    text = "Sign up",
+                    text = "Login",
                     fontSize = 16.sp,
+                    fontWeight = FontWeight.Bold,
                     color = Color.Blue,
-                    modifier = Modifier.clickable(onClick = { navController.navigate("signup") })
+                    modifier = Modifier.clickable(onClick = { navController.navigate("login") })
+                )
+            }
+            Spacer(modifier = Modifier.height(16.dp))
+            Button(
+                onClick = { navController.navigate("welcome") },
+                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF6D3D)),
+                shape = RoundedCornerShape(50),
+                modifier = Modifier.fillMaxWidth()
+                    .padding(start = 16.dp)
+                    .padding(end = 16.dp)
+            ) {
+                Text(
+                    text = "Back to Welcome Screen",
+                    color = Color.White,
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Bold
                 )
             }
         }

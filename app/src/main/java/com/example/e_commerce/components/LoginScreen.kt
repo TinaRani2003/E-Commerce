@@ -1,4 +1,5 @@
-package com.example.e_commerce
+package com.example.e_commerce.components
+
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -39,15 +40,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.e_commerce.R
 
 @Composable
-fun SignupScreen(navController: NavController) {
-    var name by remember { mutableStateOf("") }
-    var email by remember { mutableStateOf("") }
+fun LoginScreen(navController: NavController) {
     var password by remember { mutableStateOf("") }
-    var phoneNumber by remember { mutableStateOf("") }
-    var passwordVisible by remember { mutableStateOf(false) }
-
+    var passwordVisible by remember { mutableStateOf(false)}
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -65,10 +63,10 @@ fun SignupScreen(navController: NavController) {
             verticalArrangement = Arrangement.Center,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 30.dp)
+                .padding(top = 100.dp)
         ) {
             Text(
-                text = "HEY!!!",
+                text = "Access to",
                 fontSize = 40.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color.Black,
@@ -76,11 +74,19 @@ fun SignupScreen(navController: NavController) {
                     textAlign = TextAlign.Center
                 )
             )
-
-            Spacer(modifier = Modifier.height(15.dp))
-
+            Spacer(modifier = Modifier.height(10.dp))
             Text(
-                text = "Create an account with EZYDEALS",
+                text = "EZYDEALS",
+                fontSize = 40.sp,
+                fontWeight = FontWeight.Bold,
+                color = Color.Black,
+                style = TextStyle(
+                    textAlign = TextAlign.Center
+                )
+            )
+            Spacer(modifier = Modifier.height(10.dp))
+            Text(
+                text = "Perks",
                 fontSize = 40.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color.Black,
@@ -89,29 +95,20 @@ fun SignupScreen(navController: NavController) {
                 )
             )
 
-            Spacer(modifier = Modifier.height(16.dp))
+
+
+            Spacer(modifier = Modifier.height(30.dp))
 
             OutlinedTextField(
-                value = name,
-                onValueChange = { name = it },
-                label = { Text("Name") },
-                modifier = Modifier.fillMaxWidth()
-                    .padding(start = 16.dp)
-                    .padding(end = 16.dp)
-            )
-
-            Spacer(modifier = Modifier.height(8.dp))
-
-            OutlinedTextField(
-                value = email,
-                onValueChange = { email = it },
+                value = "",
+                onValueChange = { },
                 label = { Text("Email") },
                 modifier = Modifier.fillMaxWidth()
                     .padding(start = 16.dp)
                     .padding(end = 16.dp)
             )
 
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(20.dp))
 
             OutlinedTextField(
                 value = password,
@@ -131,21 +128,10 @@ fun SignupScreen(navController: NavController) {
                     .padding(end = 16.dp)
             )
 
-            Spacer(modifier = Modifier.height(8.dp))
-
-            OutlinedTextField(
-                value = phoneNumber,
-                onValueChange = { phoneNumber = it },
-                label = { Text("Phone Number") },
-                modifier = Modifier.fillMaxWidth()
-                    .padding(start = 16.dp)
-                    .padding(end = 16.dp)
-            )
-
-            Spacer(modifier = Modifier.height(32.dp))
+            Spacer(modifier = Modifier.height(40.dp))
 
             Button(
-                onClick ={ },
+                onClick = { },
                 colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF6D3D)),
                 shape = RoundedCornerShape(50),
                 modifier = Modifier.fillMaxWidth()
@@ -153,45 +139,31 @@ fun SignupScreen(navController: NavController) {
                     .padding(end = 16.dp)
             ) {
                 Text(
-                    text = "REGISTER",
+                    text = "LOGIN",
                     color = Color.White,
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Bold
                 )
             }
 
-            Spacer(modifier = Modifier.height(1.dp))
+            Spacer(modifier = Modifier.height(16.dp))
 
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.Center
             ) {
                 Text(
-                    text = "Already have an account? ",
+                    text = "Don't have an account? ",
                     fontSize = 16.sp,
+                    fontWeight = FontWeight.Bold,
                     color = Color.Black
                 )
                 Text(
-                    text = "Login",
+                    text = "Sign up",
                     fontSize = 16.sp,
                     color = Color.Blue,
-                    modifier = Modifier.clickable(onClick = { navController.navigate("login") })
-                )
-            }
-            Spacer(modifier = Modifier.height(16.dp))
-            Button(
-                onClick = { navController.navigate("welcome") },
-                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF6D3D)),
-                shape = RoundedCornerShape(50),
-                modifier = Modifier.fillMaxWidth()
-                    .padding(start = 16.dp)
-                    .padding(end = 16.dp)
-            ) {
-                Text(
-                    text = "Back to Welcome Screen",
-                    color = Color.White,
-                    fontSize = 16.sp,
-                    fontWeight = FontWeight.Bold
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.clickable(onClick = { navController.navigate("signup") })
                 )
             }
         }

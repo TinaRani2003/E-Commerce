@@ -1,5 +1,4 @@
-package com.example.e_commerce
-
+package com.example.e_commerce.components
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -16,15 +15,15 @@ class MainActivity : ComponentActivity() {
             ECommerceApp()
         }
     }
+}
 
-
-    @Composable
-    fun ECommerceApp() {
-        val navController = rememberNavController()
-        NavHost(navController = navController, startDestination = "welcome") {
-            composable("welcome") { EzyDealsWelcomeScreen(navController) }
-            composable("signup") { SignupScreen(navController) }
-            composable("login"){LoginScreen(navController)}
-        }
+@Composable
+fun ECommerceApp() {
+    val navController = rememberNavController()
+    NavHost(navController = navController, startDestination = "welcome") {
+        composable("welcome") { WelcomeScreen(navController) }
+        composable("signup") { SignupScreen(navController) }
+        composable("login"){LoginScreen(navController)}
     }
 }
+
