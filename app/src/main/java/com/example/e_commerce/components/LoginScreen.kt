@@ -1,5 +1,6 @@
 package com.example.e_commerce.components
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -31,6 +32,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -41,11 +43,15 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.e_commerce.R
+import com.google.firebase.auth.FirebaseAuth
 
 @Composable
 fun LoginScreen(navController: NavController) {
+    var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
-    var passwordVisible by remember { mutableStateOf(false)}
+    var passwordVisible by remember { mutableStateOf(false) }
+    val context = LocalContext.current
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -54,7 +60,8 @@ fun LoginScreen(navController: NavController) {
         Image(
             painter = painterResource(id = R.drawable.cart_image), // Replace with your background image
             contentDescription = "Background Image",
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier
+                .fillMaxSize()
                 .alpha(0.2f)
         )
 
@@ -95,15 +102,14 @@ fun LoginScreen(navController: NavController) {
                 )
             )
 
-
-
             Spacer(modifier = Modifier.height(30.dp))
 
             OutlinedTextField(
-                value = "",
-                onValueChange = { },
+                value = email,
+                onValueChange = { email = it },
                 label = { Text("Email") },
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier
+                    .fillMaxWidth()
                     .padding(start = 16.dp)
                     .padding(end = 16.dp)
             )
@@ -123,7 +129,8 @@ fun LoginScreen(navController: NavController) {
                         )
                     }
                 },
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier
+                    .fillMaxWidth()
                     .padding(start = 16.dp)
                     .padding(end = 16.dp)
             )
@@ -131,10 +138,19 @@ fun LoginScreen(navController: NavController) {
             Spacer(modifier = Modifier.height(40.dp))
 
             Button(
-                onClick = { },
+                onClick = {
+                    loginUser(email, password, context) { success ->
+                        if (success) {
+                            navController.navigate("home")
+                        } else {
+                            Toast.makeText(context, "Invalid Credentials", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                },
                 colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF6D3D)),
                 shape = RoundedCornerShape(50),
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier
+                    .fillMaxWidth()
                     .padding(start = 16.dp)
                     .padding(end = 16.dp)
             ) {
@@ -168,4 +184,18 @@ fun LoginScreen(navController: NavController) {
             }
         }
     }
+}
+
+fun loginUser(email: String, password: String, context: android.content.Context, onResult: (Boolean) -> Unit) {
+    val auth = FirebaseAuth.getInstance()
+
+    auth.signInWithEmailAndPassword(email, password)
+        .addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                onResult(true)
+            } else {
+                Toast.makeText(context, task.exception?.message ?: "Login Failed", Toast.LENGTH_SHORT).show()
+                onResult(false)
+            }
+        }
 }

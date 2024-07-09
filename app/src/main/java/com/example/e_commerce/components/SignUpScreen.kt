@@ -1,4 +1,6 @@
 package com.example.e_commerce.components
+
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -30,6 +32,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -40,6 +43,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.e_commerce.R
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 @Composable
 fun SignupScreen(navController: NavController) {
@@ -48,18 +53,19 @@ fun SignupScreen(navController: NavController) {
     var password by remember { mutableStateOf("") }
     var phoneNumber by remember { mutableStateOf("") }
     var passwordVisible by remember { mutableStateOf(false) }
+    val context = LocalContext.current
 
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.Transparent) // Make the background transparent
+            .background(Color.Transparent)
     ) {
         Image(
-            painter = painterResource(id = R.drawable.cart_image), // Replace with your background image
+            painter = painterResource(id = R.drawable.cart_image),
             contentDescription = "Background Image",
             modifier = Modifier
                 .fillMaxSize()
-                .alpha(0.2f) // Make the image transparent
+                .alpha(0.2f)
         )
 
         Column(
@@ -97,9 +103,9 @@ fun SignupScreen(navController: NavController) {
                 value = name,
                 onValueChange = { name = it },
                 label = { Text("Name") },
-                modifier = Modifier.fillMaxWidth()
-                    .padding(start = 16.dp)
-                    .padding(end = 16.dp)
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 16.dp, end = 16.dp)
             )
 
             Spacer(modifier = Modifier.height(8.dp))
@@ -108,9 +114,9 @@ fun SignupScreen(navController: NavController) {
                 value = email,
                 onValueChange = { email = it },
                 label = { Text("Email") },
-                modifier = Modifier.fillMaxWidth()
-                    .padding(start = 16.dp)
-                    .padding(end = 16.dp)
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 16.dp, end = 16.dp)
             )
 
             Spacer(modifier = Modifier.height(8.dp))
@@ -128,9 +134,9 @@ fun SignupScreen(navController: NavController) {
                         )
                     }
                 },
-                modifier = Modifier.fillMaxWidth()
-                    .padding(start = 16.dp)
-                    .padding(end = 16.dp)
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 16.dp, end = 16.dp)
             )
 
             Spacer(modifier = Modifier.height(8.dp))
@@ -139,20 +145,28 @@ fun SignupScreen(navController: NavController) {
                 value = phoneNumber,
                 onValueChange = { phoneNumber = it },
                 label = { Text("Phone Number") },
-                modifier = Modifier.fillMaxWidth()
-                    .padding(start = 16.dp)
-                    .padding(end = 16.dp)
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 16.dp, end = 16.dp)
             )
 
             Spacer(modifier = Modifier.height(32.dp))
 
             Button(
-                onClick ={ },
+                onClick = {
+                    registerUser(name, email, password, phoneNumber, context) { success ->
+                        if (success) {
+                            navController.navigate("login")
+                        } else {
+                            Toast.makeText(context, "Registration Failed", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                },
                 colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF6D3D)),
                 shape = RoundedCornerShape(50),
-                modifier = Modifier.fillMaxWidth()
-                    .padding(start = 16.dp)
-                    .padding(end = 16.dp)
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 16.dp, end = 16.dp)
             ) {
                 Text(
                     text = "REGISTER",
@@ -162,7 +176,7 @@ fun SignupScreen(navController: NavController) {
                 )
             }
 
-            Spacer(modifier = Modifier.height(1.dp))
+            Spacer(modifier = Modifier.height(16.dp))
 
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -182,14 +196,16 @@ fun SignupScreen(navController: NavController) {
                     modifier = Modifier.clickable(onClick = { navController.navigate("login") })
                 )
             }
+
             Spacer(modifier = Modifier.height(16.dp))
+
             Button(
                 onClick = { navController.navigate("welcome") },
                 colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF6D3D)),
                 shape = RoundedCornerShape(50),
-                modifier = Modifier.fillMaxWidth()
-                    .padding(start = 16.dp)
-                    .padding(end = 16.dp)
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 16.dp, end = 16.dp)
             ) {
                 Text(
                     text = "Back to Welcome Screen",
@@ -200,4 +216,50 @@ fun SignupScreen(navController: NavController) {
             }
         }
     }
+}
+
+fun registerUser(
+    name: String,
+    email: String,
+    password: String,
+    phoneNumber: String,
+    context: android.content.Context,
+    onResult: (Boolean) -> Unit
+) {
+    val auth = FirebaseAuth.getInstance()
+    val firestore = FirebaseFirestore.getInstance()
+
+    auth.createUserWithEmailAndPassword(email, password)
+        .addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                // Get the current user
+                val user = auth.currentUser
+
+                // Create a user data map
+                val userData = hashMapOf(
+                    "name" to name,
+                    "email" to email,
+                    "phoneNumber" to phoneNumber
+                )
+
+                // Store the user data in Firestore under the "users" collection
+                firestore.collection("users")
+                    .document(user?.uid ?: "")
+                    .set(userData)
+                    .addOnCompleteListener { userTask ->
+                        if (userTask.isSuccessful) {
+                            Toast.makeText(context, "Registration Successful", Toast.LENGTH_SHORT).show()
+                            onResult(true)
+                        } else {
+                            val errorMessage = userTask.exception?.message ?: "Firestore Registration Failed"
+                            Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
+                            onResult(false)
+                        }
+                    }
+            } else {
+                val errorMessage = task.exception?.message ?: "Authentication Registration Failed"
+                Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
+                onResult(false)
+            }
+        }
 }
