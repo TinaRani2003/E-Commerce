@@ -27,8 +27,8 @@ fun ECommerceApp() {
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = "welcome") {
         composable("welcome") { WelcomeScreen(navController) }
-        composable("login"){ LoginScreen(navController) }
         composable("signup") { SignupScreen(navController) }
+        composable("login"){ LoginScreen(navController) }
         composable("home"){ HomeScreen(navController) }
         composable("forgotpassword") { ForgotPasswordScreen(navController) }
 
