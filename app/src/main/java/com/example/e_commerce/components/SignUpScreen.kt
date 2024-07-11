@@ -235,6 +235,15 @@ fun registerUser(
                 // Get the current user
                 val user = auth.currentUser
 
+                auth.currentUser?.sendEmailVerification()
+                    ?.addOnSuccessListener{
+                        Toast.makeText(context, "Please verify your email", Toast.LENGTH_SHORT).show()
+                        onResult(false)
+                    }
+                    ?.addOnFailureListener {
+                        Toast.makeText(context, "Failed to send verification email", Toast.LENGTH_SHORT).show()
+                        onResult(false)
+                    }
                 // Create a user data map
                 val userData = hashMapOf(
                     "name" to name,

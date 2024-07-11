@@ -192,7 +192,12 @@ fun loginUser(email: String, password: String, context: android.content.Context,
     auth.signInWithEmailAndPassword(email, password)
         .addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                onResult(true)
+                val verification = auth.currentUser?.isEmailVerified
+                if (verification == true) {
+                    onResult(true)
+                }else{
+                    Toast.makeText(context, "Please verify your email", Toast.LENGTH_SHORT).show()
+                }
             } else {
                 Toast.makeText(context, task.exception?.message ?: "Login Failed", Toast.LENGTH_SHORT).show()
                 onResult(false)
