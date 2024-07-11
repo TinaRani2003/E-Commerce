@@ -7,6 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.e_commerce.components.ForgotPasswordScreen
 import com.example.e_commerce.components.HomeScreen
 import com.example.e_commerce.components.LoginScreen
 import com.example.e_commerce.components.SignupScreen
@@ -26,9 +27,11 @@ fun ECommerceApp() {
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = "welcome") {
         composable("welcome") { WelcomeScreen(navController) }
-        composable("signup") { SignupScreen(navController) }
         composable("login"){ LoginScreen(navController) }
+        composable("signup") { SignupScreen(navController) }
         composable("home"){ HomeScreen(navController) }
+        composable("forgotpassword") { ForgotPasswordScreen(navController) }
+
     }
 }
 
