@@ -75,6 +75,8 @@ dependencies {
     debugImplementation(libs.ui.test.manifest)
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.analytics)
+
+
 }
 
 
