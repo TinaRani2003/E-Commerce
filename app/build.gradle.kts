@@ -65,6 +65,7 @@ dependencies {
     implementation(libs.androidx.ui.android)
     implementation(libs.firebase.auth.ktx)
     implementation(libs.firebase.firestore.ktx)
+    implementation(libs.play.services.analytics.impl)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
@@ -77,6 +78,12 @@ dependencies {
     implementation(libs.firebase.analytics)
 
 
+    // Retrofit for networking
+    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+
+    // Coil for image loading
+    implementation ("io.coil-kt:coil-compose:1.4.0")
 }
 
 
