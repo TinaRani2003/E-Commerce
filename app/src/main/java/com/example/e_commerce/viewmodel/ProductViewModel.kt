@@ -1,6 +1,7 @@
 package com.example.e_commerce.viewmodel
 
 import android.content.Context
+import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.e_commerce.network.Product
@@ -22,6 +23,7 @@ class ProductViewModel(private val context: Context) : ViewModel() {
 
     private fun fetchProducts() {
         if (!NetworkUtils.isNetworkAvailable(context)) {
+            Toast.makeText(context, "No internet connection", Toast.LENGTH_SHORT).show()
             return
         }
 
@@ -30,7 +32,7 @@ class ProductViewModel(private val context: Context) : ViewModel() {
                 val productsList = RetrofitInstance.api.getProducts()
                 _products.value = productsList
             } catch (e: IOException) {
-
+                Toast.makeText(context, "Failed to fetch products. Please try again.", Toast.LENGTH_SHORT).show()
             }
         }
     }
