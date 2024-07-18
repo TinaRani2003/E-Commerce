@@ -66,6 +66,7 @@ dependencies {
     implementation(libs.firebase.auth.ktx)
     implementation(libs.firebase.firestore.ktx)
     implementation(libs.play.services.analytics.impl)
+    implementation(libs.androidx.lifecycle.runtime.compose.android)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
@@ -84,6 +85,9 @@ dependencies {
 
     // Coil for image loading
     implementation ("io.coil-kt:coil-compose:1.4.0")
+
+    implementation ("androidx.navigation:navigation-compose:2.4.0-alpha10")
+    implementation ("androidx.compose.material3:material3:1.0.0-alpha10")
 }
 
 

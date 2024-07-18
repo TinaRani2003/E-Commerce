@@ -4,6 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -20,13 +21,22 @@ import com.example.e_commerce.viewmodel.ProductViewModel
 @Composable
 fun HomeScreen(navController: NavHostController, productViewModel: ProductViewModel) {
     val products by productViewModel.products.collectAsState()
+    val categories by productViewModel.categories.collectAsState()
 
-    Column(modifier = Modifier.fillMaxSize()) {
+    Column {
         HomeTopAppBar()
-        LazyColumn {
-            items(products) { product ->
-                ProductItem(product)
-            }
+        CategoryList(categories) { category ->
+            productViewModel.onCategorySelected(category)
+        }
+        ProductList(products)
+    }
+}
+
+@Composable
+fun ProductList(products: List<Product>) {
+    LazyColumn {
+        items(products.size) { index ->
+            ProductItem(products[index])
         }
     }
 }
