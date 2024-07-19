@@ -57,7 +57,7 @@ fun ForgotPasswordScreen(navController: NavController) {
             verticalArrangement = Arrangement.Center,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 50.dp)
+                .padding(top = 150.dp)
         ) {
             Text(
                 text = "Forgot Password",
@@ -69,7 +69,7 @@ fun ForgotPasswordScreen(navController: NavController) {
                 )
             )
 
-            Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.height(150.dp))
 
             OutlinedTextField(
                 value = email,
