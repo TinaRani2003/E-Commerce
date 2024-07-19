@@ -89,6 +89,10 @@ dependencies {
     implementation (libs.androidx.navigation.compose)
     implementation (libs.material3)
 
+        implementation (libs.androidx.foundation) // Check for the latest version
+
+
+
 }
 
 

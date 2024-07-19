@@ -21,13 +21,27 @@ fun CategoryScreen(navController: NavHostController, productViewModel: ProductVi
     var selectedTab by remember { mutableIntStateOf(1) }
 
     Scaffold(
-        topBar = { AppTopAppBar(title = "EZYDEALS", onAccountClick = { navController.navigate("profile") }) },
-        bottomBar = { AppBottomNavigationBar(navController, selectedTab) { selectedTab = it } }
+        topBar = {
+            AppTopAppBar(
+                title = "EZYDEALS",
+                onAccountClick = { navController.navigate("profile") }
+            )
+        },
+        bottomBar = {
+            AppBottomNavigationBar(
+                navController = navController,
+                selectedTab = selectedTab,
+                onTabSelected = { selectedTab = it }
+            )
+        }
     ) { paddingValues ->
         Column(modifier = Modifier.padding(paddingValues)) {
-            CategoryList(categories) { category ->
+            // Integrate CategoryBar here
+            CategoryBar { category ->
+                // Handle category selection
                 productViewModel.onCategorySelected(category)
             }
+            // Display products based on selected category
             ProductList(products)
         }
     }
