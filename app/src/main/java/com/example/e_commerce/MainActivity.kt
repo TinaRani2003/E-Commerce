@@ -13,6 +13,7 @@ import com.example.e_commerce.components.CategoryScreen
 import com.example.e_commerce.components.ForgotPasswordScreen
 import com.example.e_commerce.components.HomeScreen
 import com.example.e_commerce.components.LoginScreen
+import com.example.e_commerce.components.ProductDetails
 import com.example.e_commerce.components.ProfileScreen
 import com.example.e_commerce.components.SignupScreen
 import com.example.e_commerce.components.WelcomeScreen
@@ -41,14 +42,17 @@ fun ECommerceApp(productViewModel: ProductViewModel) {
             composable("welcome") { WelcomeScreen(navController) }
             composable("signup") { SignupScreen(navController) }
             composable("login") { LoginScreen(navController) }
-            //composable("home") { com.example.e_commerce.components.HomeScreen(navController, productViewModel) }
             composable("forgotpassword") { ForgotPasswordScreen(navController) }
-
-            // Add the new destinations
             composable("home") { HomeScreen(navController) }
             composable("categories") { CategoryScreen(navController, productViewModel) }
             composable("cart") { CartScreen(navController) }
             composable("profile") { ProfileScreen(navController) }
+            composable("product_details/{productId}") { backStackEntry ->
+                val productId = backStackEntry.arguments?.getString("productId")
+                val product = productViewModel.getProductById(productId)
+                ProductDetails(navController, product)
+            }
         }
     }
 }
+

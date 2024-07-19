@@ -28,6 +28,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
 import com.example.e_commerce.R
 import com.example.e_commerce.network.Product
@@ -43,7 +44,7 @@ fun CategoryBar(onCategoryClick: (String) -> Unit) {
         CategoryItem("electronics", R.drawable.phone_icon, onCategoryClick)
         CategoryItem("jewellery", R.drawable.new_jewellery, onCategoryClick)
         CategoryItem("men's clothing", R.drawable.man_icon, onCategoryClick)
-        CategoryItem("women's clothing", R.drawable.woman_icon, onCategoryClick)
+        CategoryItem("women's clothing", R.drawable.womans_icon, onCategoryClick)
     }
 }
 
@@ -69,9 +70,11 @@ fun CategoryItem(category: String, iconResId: Int, onCategoryClick: (String) -> 
 }
 
 @Composable
-fun ProductList(products: List<Product>) {
+fun ProductList(products: List<Product>, navController: NavController) {
     Column(
-        modifier = Modifier.fillMaxSize().padding(8.dp)
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(8.dp)
     ) {
         LazyVerticalGrid(
             columns = GridCells.Fixed(2),
@@ -80,18 +83,21 @@ fun ProductList(products: List<Product>) {
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             items(products) { product ->
-                ProductItem(product)
+                ProductItem(product, navController)
             }
         }
     }
 }
 
 @Composable
-fun ProductItem(product: Product) {
+fun ProductItem(product: Product, navController: NavController) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(8.dp),
+            .padding(8.dp)
+            .clickable {
+                navController.navigate("product_details/${product.id}")
+            },
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)
     ) {

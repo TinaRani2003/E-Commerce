@@ -1,6 +1,7 @@
 package com.example.e_commerce.viewmodel
 
 import android.content.Context
+import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.e_commerce.network.Product
@@ -10,7 +11,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import java.io.IOException
-import android.widget.Toast
 
 class ProductViewModel(private val context: Context) : ViewModel() {
 
@@ -68,4 +68,10 @@ class ProductViewModel(private val context: Context) : ViewModel() {
     fun onCategorySelected(category: String) {
         fetchProducts(category)
     }
+    fun getProductById(productId: String?): Product? {
+        val id = productId?.toIntOrNull() // Safely convert String? to Int?
+        return _products.value.find { it.id == id }
+    }
+
+
 }

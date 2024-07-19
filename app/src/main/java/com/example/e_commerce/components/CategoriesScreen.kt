@@ -42,7 +42,7 @@ fun CategoryScreen(navController: NavHostController, productViewModel: ProductVi
                 productViewModel.onCategorySelected(category)
             }
             // Display products based on selected category
-            ProductList(products)
+            ProductList(products, navController)
         }
     }
 }

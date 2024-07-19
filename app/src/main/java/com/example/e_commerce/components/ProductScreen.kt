@@ -16,8 +16,6 @@ fun ProductsScreen(navController: NavController, productViewModel: ProductViewMo
         CategoryList(categories.value) { category ->
             productViewModel.onCategorySelected(category)
         }
-        ProductList(products.value)
+        ProductList(products.value, navController)
     }
 }
-
-
