@@ -52,6 +52,7 @@ fun ECommerceApp(productViewModel: ProductViewModel) {
                 val product = productViewModel.getProductById(productId)
                 ProductDetails(navController, product)
             }
+
         }
     }
 }

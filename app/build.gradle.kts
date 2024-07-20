@@ -93,6 +93,13 @@ dependencies {
         implementation (libs.androidx.foundation) // Check for the latest version
 
 
+        implementation (libs.material3)
+        implementation ("androidx.compose.material3:material3-window-size-class:1.2.1")
+
+    implementation (libs.ui)
+   
+
+
 
 }
 

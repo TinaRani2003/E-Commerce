@@ -20,6 +20,9 @@ class ProductViewModel(private val context: Context) : ViewModel() {
     private val _categories = MutableStateFlow<List<String>>(emptyList())
     val categories: StateFlow<List<String>> get() = _categories
 
+
+
+
     init {
         fetchProducts()
         fetchCategories()
@@ -72,6 +75,9 @@ class ProductViewModel(private val context: Context) : ViewModel() {
         val id = productId?.toIntOrNull() // Safely convert String? to Int?
         return _products.value.find { it.id == id }
     }
+
+
+
 
 
 }

@@ -2,6 +2,7 @@ package com.example.e_commerce.components
 
 import android.widget.Toast
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Category
 import androidx.compose.material.icons.filled.Home
@@ -32,14 +33,21 @@ import com.example.e_commerce.ui.theme.BlueDark
 @OptIn(ExperimentalMaterial3Api::class)
 fun AppTopAppBar(
     title: String,
+    onBackClick: (() -> Unit)? = null,
     onAccountClick: () -> Unit
 ) {
     val context = LocalContext.current
     TopAppBar(
         title = { Text(text = title) },
         navigationIcon = {
-            IconButton(onClick = { onAccountClick() }) {
-                Icon(imageVector = Icons.Filled.AccountCircle, contentDescription = "App Icon")
+            if (onBackClick != null) {
+                IconButton(onClick = onBackClick) {
+                    Icon(imageVector = Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
+                }
+            } else {
+                IconButton(onClick = onAccountClick) {
+                    Icon(imageVector = Icons.Filled.AccountCircle, contentDescription = "App Icon")
+                }
             }
         },
         colors = TopAppBarDefaults.topAppBarColors(
@@ -49,17 +57,31 @@ fun AppTopAppBar(
         ),
         actions = {
             IconButton(onClick = { Toast.makeText(context, "Search", Toast.LENGTH_SHORT).show() }) {
-                Icon(imageVector = Icons.Filled.Search, contentDescription = "Search", tint = Color.White)
+                Icon(
+                    imageVector = Icons.Filled.Search,
+                    contentDescription = "Search",
+                    tint = Color.White
+                )
             }
-            IconButton(onClick = { Toast.makeText(context, "Notifications", Toast.LENGTH_SHORT).show() }) {
-                Icon(imageVector = Icons.Filled.Notifications, contentDescription = "Notifications", tint = Color.White)
+            IconButton(onClick = {
+                Toast.makeText(context, "Notifications", Toast.LENGTH_SHORT).show()
+            }) {
+                Icon(
+                    imageVector = Icons.Filled.Notifications,
+                    contentDescription = "Notifications",
+                    tint = Color.White
+                )
             }
         }
     )
 }
 
 @Composable
-fun AppBottomNavigationBar(navController: NavHostController, selectedTab: Int, onTabSelected: (Int) -> Unit) {
+fun AppBottomNavigationBar(
+    navController: NavHostController,
+    selectedTab: Int,
+    onTabSelected: (Int) -> Unit
+) {
     NavigationBar {
         bottomNavItems.forEachIndexed { index, bottomNavItem ->
             NavigationBarItem(

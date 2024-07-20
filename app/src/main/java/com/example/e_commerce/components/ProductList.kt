@@ -42,7 +42,7 @@ fun CategoryBar(onCategoryClick: (String) -> Unit) {
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         CategoryItem("electronics", R.drawable.phone_icon, onCategoryClick)
-        CategoryItem("jewellery", R.drawable.new_jewellery, onCategoryClick)
+        CategoryItem("jewelery", R.drawable.new_jewellery, onCategoryClick)
         CategoryItem("men's clothing", R.drawable.man_icon, onCategoryClick)
         CategoryItem("women's clothing", R.drawable.womans_icon, onCategoryClick)
     }
