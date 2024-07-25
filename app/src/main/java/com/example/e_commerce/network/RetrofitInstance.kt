@@ -13,6 +13,8 @@ data class Product(
     val image: String
 )
 
+
+
 interface FakeStoreApi {
     @GET("products")
     suspend fun getProducts(): List<Product>

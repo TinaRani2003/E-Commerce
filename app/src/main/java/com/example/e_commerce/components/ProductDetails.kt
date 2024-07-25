@@ -24,9 +24,10 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import coil.compose.rememberAsyncImagePainter
 import com.example.e_commerce.network.Product
+import com.example.e_commerce.viewmodel.CartViewModel
 
 @Composable
-fun ProductDetails(navController: NavHostController, product: Product?) {
+fun ProductDetails(navController: NavHostController, product: Product?, cartViewModel: CartViewModel) {
     if (product == null) {
         Text(text = "Product not found", style = MaterialTheme.typography.bodyLarge)
         return
@@ -94,11 +95,8 @@ fun ProductDetails(navController: NavHostController, product: Product?) {
             horizontalArrangement = Arrangement.SpaceEvenly,
             modifier = Modifier.fillMaxWidth()
         ) {
-            Button(onClick = { /* Add to Cart Logic */ }) {
+            Button(onClick = { cartViewModel.addToCart(product) }) {
                 Text(text = "Add to Cart")
-            }
-            Button(onClick = { /* Buy Now Logic */ }) {
-                Text(text = "Buy Now")
             }
         }
     }

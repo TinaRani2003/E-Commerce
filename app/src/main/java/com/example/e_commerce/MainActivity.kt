@@ -18,6 +18,7 @@ import com.example.e_commerce.components.ProfileScreen
 import com.example.e_commerce.components.SignupScreen
 import com.example.e_commerce.components.WelcomeScreen
 import com.example.e_commerce.ui.theme.ECommerceTheme
+import com.example.e_commerce.viewmodel.CartViewModel
 import com.example.e_commerce.viewmodel.ProductViewModel
 import com.example.e_commerce.viewmodel.ProductViewModelFactory
 
@@ -25,35 +26,39 @@ class MainActivity : ComponentActivity() {
     private val productViewModel: ProductViewModel by viewModels {
         ProductViewModelFactory(applicationContext)
     }
+    private val cartViewModel: CartViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            ECommerceApp(productViewModel)
+            ECommerceApp(productViewModel, cartViewModel)
         }
     }
 }
 
+
 @Composable
-fun ECommerceApp(productViewModel: ProductViewModel) {
+fun ECommerceApp(productViewModel: ProductViewModel, cartViewModel: CartViewModel) {
     val navController = rememberNavController()
     ECommerceTheme {
         NavHost(navController = navController, startDestination = "welcome") {
             composable("welcome") { WelcomeScreen(navController) }
             composable("signup") { SignupScreen(navController) }
             composable("login") { LoginScreen(navController) }
-            composable("forgotpassword") { ForgotPasswordScreen(navController) }
+            composable("forgot password") { ForgotPasswordScreen(navController) }
             composable("home") { HomeScreen(navController) }
             composable("categories") { CategoryScreen(navController, productViewModel) }
-            composable("cart") { CartScreen(navController) }
+            composable("cart") { CartScreen(navController, cartViewModel) }
             composable("profile") { ProfileScreen(navController) }
             composable("product_details/{productId}") { backStackEntry ->
                 val productId = backStackEntry.arguments?.getString("productId")
                 val product = productViewModel.getProductById(productId)
-                ProductDetails(navController, product)
+                ProductDetails(navController, product, cartViewModel)
             }
-
         }
     }
 }
+
+
+
 
