@@ -68,6 +68,7 @@ dependencies {
     implementation(libs.play.services.analytics.impl)
     implementation(libs.androidx.lifecycle.runtime.compose.android)
     implementation(libs.billing.ktx)
+    implementation(libs.androidx.room.common)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

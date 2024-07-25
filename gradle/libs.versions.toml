@@ -31,6 +31,7 @@ firebaseFirestoreKtx = "25.0.0"
 playServicesAnalyticsImpl = "18.1.0"
 lifecycleRuntimeComposeAndroid = "2.8.3"
 billingKtx = "7.0.0"
+roomCommon = "2.6.1"
 
 [libraries]
 androidx-compose-bom-v20240600 = { module = "androidx.compose:compose-bom", version.ref = "composeBomVersion" }
@@ -72,6 +73,7 @@ firebase-firestore-ktx = { group = "com.google.firebase", name = "firebase-fires
 play-services-analytics-impl = { group = "com.google.android.gms", name = "play-services-analytics-impl", version.ref = "playServicesAnalyticsImpl" }
 androidx-lifecycle-runtime-compose-android = { group = "androidx.lifecycle", name = "lifecycle-runtime-compose-android", version.ref = "lifecycleRuntimeComposeAndroid" }
 billing-ktx = { group = "com.android.billingclient", name = "billing-ktx", version.ref = "billingKtx" }
+androidx-room-common = { group = "androidx.room", name = "room-common", version.ref = "roomCommon" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

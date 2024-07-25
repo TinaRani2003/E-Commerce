@@ -1,3 +1,5 @@
+
+
 package com.example.e_commerce.ui.theme
 
 import android.app.Activity
@@ -56,3 +58,4 @@ fun ECommerceTheme(
         content = content
     )
 }
+

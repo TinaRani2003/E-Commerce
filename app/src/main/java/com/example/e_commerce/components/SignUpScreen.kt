@@ -271,4 +271,5 @@ fun registerUser(
                 onResult(false)
             }
         }
+
 }

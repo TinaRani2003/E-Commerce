@@ -22,3 +22,6 @@ fun CategoryList(categories: List<String>, onCategorySelected: (String) -> Unit)
         }
     }
 }
+
+
+
