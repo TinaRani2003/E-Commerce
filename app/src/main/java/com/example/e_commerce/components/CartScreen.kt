@@ -26,6 +26,7 @@ import com.example.e_commerce.viewmodel.CartViewModel
 @Composable
 fun CartScreen(navController: NavHostController, cartViewModel: CartViewModel = viewModel()) {
     val cartItems by cartViewModel.cartItems.collectAsState()
+    val totalPrice = cartItems.sumOf { it.product.price * it.quantity }
 
     Scaffold(
         topBar = { AppTopAppBar(title = "EZYDEALS", onAccountClick = { navController.navigate("profile") }) },
@@ -54,7 +55,7 @@ fun CartScreen(navController: NavHostController, cartViewModel: CartViewModel = 
             } else {
                 LazyColumn(
                     modifier = Modifier
-                        .fillMaxSize()
+                        .weight(1f)
                         .padding(16.dp)
                 ) {
                     items(cartItems) { cartItem ->
@@ -62,6 +63,39 @@ fun CartScreen(navController: NavHostController, cartViewModel: CartViewModel = 
                             cartItem = cartItem,
                             onAddClick = { cartViewModel.addToCart(cartItem.product) },
                             onRemoveClick = { cartViewModel.removeFromCart(cartItem.product) }
+                        )
+                    }
+                }
+
+                // Checkout Section
+                Column(
+                    modifier = Modifier
+                        .padding(16.dp)
+                        .border(1.dp, Color.Gray.copy(alpha = 0.2f))
+                        .padding(16.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Text(
+                        text = "Total Price: $${"%.2f".format(totalPrice)}",
+                        style = MaterialTheme.typography.bodyLarge.copy(
+                            fontWeight = androidx.compose.ui.text.font.FontWeight.Bold,
+                            color = Color.Black
+                        )
+                    )
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Button(
+                        onClick = { /* Handle checkout action */ },
+                        modifier = Modifier.fillMaxWidth(),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = Color.Blue,
+                            contentColor = Color.White
+                        )
+                    ) {
+                        Text(
+                            text = "Checkout",
+                            style = MaterialTheme.typography.bodyLarge.copy(
+                                fontWeight = androidx.compose.ui.text.font.FontWeight.Bold
+                            )
                         )
                     }
                 }
@@ -76,7 +110,7 @@ fun CartItemRow(cartItem: CartItem, onAddClick: () -> Unit, onRemoveClick: () ->
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 8.dp)
-            .border(1.dp, Color.Gray.copy(alpha = 0.2f)) 
+            .border(1.dp, Color.Gray.copy(alpha = 0.2f))
             .padding(8.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically

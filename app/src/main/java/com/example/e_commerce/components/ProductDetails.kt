@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -97,6 +98,15 @@ fun ProductDetails(navController: NavHostController, product: Product?, cartView
         ) {
             Button(onClick = { cartViewModel.addToCart(product) }) {
                 Text(text = "Add to Cart")
+            }
+            Button(
+                onClick = { /* Handle Buy Now action */ },
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color.Blue,
+                    contentColor = Color.White
+                )
+            ) {
+                Text(text = "Buy Now")
             }
         }
     }
