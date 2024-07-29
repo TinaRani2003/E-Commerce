@@ -71,7 +71,6 @@ fun CartScreen(navController: NavHostController, cartViewModel: CartViewModel = 
                 Column(
                     modifier = Modifier
                         .padding(16.dp)
-                        .border(1.dp, Color.Gray.copy(alpha = 0.2f))
                         .padding(16.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
