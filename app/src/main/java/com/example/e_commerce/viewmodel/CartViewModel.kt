@@ -1,9 +1,11 @@
 package com.example.e_commerce.viewmodel
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.e_commerce.network.Product
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 
 data class CartItem(
     val product: Product,
@@ -38,5 +40,9 @@ class CartViewModel : ViewModel() {
                 _cartItems.value = _cartItems.value.filterNot { it.product.id == product.id }
             }
         }
+    }
+
+    fun clearCart() {
+        _cartItems.value = emptyList()
     }
 }

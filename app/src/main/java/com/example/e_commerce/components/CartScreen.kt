@@ -84,7 +84,7 @@ fun CartScreen(navController: NavHostController, cartViewModel: CartViewModel = 
                     )
                     Spacer(modifier = Modifier.height(8.dp))
                     Button(
-                        onClick = { /* Handle checkout action */ },
+                        onClick = { navController.navigate("payment/${"%.2f".format(totalPrice)}") },
                         modifier = Modifier.fillMaxWidth(),
                         colors = ButtonDefaults.buttonColors(
                             containerColor = Color.Blue,

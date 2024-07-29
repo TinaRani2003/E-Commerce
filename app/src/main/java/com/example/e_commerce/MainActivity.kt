@@ -8,15 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.e_commerce.components.CartScreen
-import com.example.e_commerce.components.CategoryScreen
-import com.example.e_commerce.components.ForgotPasswordScreen
-import com.example.e_commerce.components.HomeScreen
-import com.example.e_commerce.components.LoginScreen
-import com.example.e_commerce.components.ProductDetails
-import com.example.e_commerce.components.ProfileScreen
-import com.example.e_commerce.components.SignupScreen
-import com.example.e_commerce.components.WelcomeScreen
+import com.example.e_commerce.components.*
 import com.example.e_commerce.ui.theme.ECommerceTheme
 import com.example.e_commerce.viewmodel.CartViewModel
 import com.example.e_commerce.viewmodel.ProductViewModel
@@ -36,7 +28,6 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-
 @Composable
 fun ECommerceApp(productViewModel: ProductViewModel, cartViewModel: CartViewModel) {
     val navController = rememberNavController()
@@ -55,10 +46,13 @@ fun ECommerceApp(productViewModel: ProductViewModel, cartViewModel: CartViewMode
                 val product = productViewModel.getProductById(productId)
                 ProductDetails(navController, product, cartViewModel)
             }
+            composable("payment/{totalPrice}") { backStackEntry ->
+                val totalPrice = backStackEntry.arguments?.getString("totalPrice")?.toDoubleOrNull() ?: 0.0
+                PaymentScreen(navController, totalPrice, cartViewModel)
+            }
+            composable("payment_confirmation") {
+                PaymentConfirmationScreen(navController)
+            }
         }
     }
 }
-
-
-
-
