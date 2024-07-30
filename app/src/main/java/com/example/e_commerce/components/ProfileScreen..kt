@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -18,6 +19,9 @@ import androidx.navigation.NavHostController
 fun ProfileScreen(navController: NavHostController, userSessionViewModel: UserSessionViewModel = viewModel()) {
     // Track the selected tab
     var selectedTab by remember { mutableIntStateOf(3) } // 3 corresponds to the Profile tab
+
+    // Observe user details from the view model
+    val user by userSessionViewModel.user.observeAsState()
 
     Scaffold(
         topBar = { AppTopAppBar(title = "EZYDEALS", onAccountClick = { /* No additional action needed */ }) },
@@ -43,7 +47,7 @@ fun ProfileScreen(navController: NavHostController, userSessionViewModel: UserSe
 
             // User Information
             ProfileSectionTitle("User Information")
-            UserInfo()
+            user?.let { UserInfo(it) } ?: Text("Loading...")
 
             Spacer(modifier = Modifier.height(16.dp))
 
@@ -81,13 +85,15 @@ fun ProfileSectionTitle(title: String) {
 }
 
 @Composable
-fun UserInfo() {
-    var userName by remember { mutableStateOf(TextFieldValue("Hemant")) }
-    var userEmail by remember { mutableStateOf(TextFieldValue("hemant4234mahato@gmail.com")) }
+fun UserInfo(user: User) {
+    var userName by remember { mutableStateOf(TextFieldValue(user.name)) }
+    var userEmail by remember { mutableStateOf(TextFieldValue(user.email)) }
+    var userPhone by remember { mutableStateOf(TextFieldValue(user.phoneNumber)) }
 
     Column {
         ProfileTextField(label = "Name", value = userName, onValueChange = { userName = it })
         ProfileTextField(label = "Email", value = userEmail, onValueChange = { userEmail = it })
+        ProfileTextField(label = "Phone", value = userPhone, onValueChange = { userPhone = it })
     }
 }
 
@@ -125,7 +131,7 @@ fun OrderHistoryItem(orderId: String) {
 @Composable
 fun Address() {
     Column {
-        AddressItem("Address", "jsr")
+        AddressItem("Address", "Enter your address")
     }
 }
 
@@ -163,7 +169,6 @@ fun AccountSettingsItem(option: String, onClick: () -> Unit) {
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 8.dp)
-            .clickable { onClick() }
+            .clickable(onClick = onClick)
     )
 }
-

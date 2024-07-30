@@ -32,6 +32,7 @@ playServicesAnalyticsImpl = "18.1.0"
 lifecycleRuntimeComposeAndroid = "2.8.3"
 billingKtx = "7.0.0"
 roomCommon = "2.6.1"
+runtimeLivedata = "1.6.8"
 
 [libraries]
 androidx-compose-bom-v20240600 = { module = "androidx.compose:compose-bom", version.ref = "composeBomVersion" }
@@ -74,6 +75,7 @@ play-services-analytics-impl = { group = "com.google.android.gms", name = "play-
 androidx-lifecycle-runtime-compose-android = { group = "androidx.lifecycle", name = "lifecycle-runtime-compose-android", version.ref = "lifecycleRuntimeComposeAndroid" }
 billing-ktx = { group = "com.android.billingclient", name = "billing-ktx", version.ref = "billingKtx" }
 androidx-room-common = { group = "androidx.room", name = "room-common", version.ref = "roomCommon" }
+androidx-runtime-livedata = { group = "androidx.compose.runtime", name = "runtime-livedata", version.ref = "runtimeLivedata" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
