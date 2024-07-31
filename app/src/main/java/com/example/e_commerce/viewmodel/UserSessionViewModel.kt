@@ -8,11 +8,16 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.launch
 
-data class User(val name: String = "", val email: String = "", val phoneNumber: String = "")
+data class User(
+    val name: String = "",
+    val email: String = "",
+    val phoneNumber: String = "",
+    val profilePictureUrl: String = ""
+)
 
 class UserSessionViewModel : ViewModel() {
     private val _user = MutableLiveData<User?>()
-    val user: MutableLiveData<User?> = _user
+    val user: LiveData<User?> = _user
 
     init {
         fetchUserDetails()
@@ -30,6 +35,23 @@ class UserSessionViewModel : ViewModel() {
                         val user = document.toObject(User::class.java)
                         _user.value = user
                     }
+                }
+                .addOnFailureListener {
+                    // Handle failure
+                }
+        }
+    }
+
+    fun updateUserProfilePicture(url: String) {
+        val auth = FirebaseAuth.getInstance()
+        val firestore = FirebaseFirestore.getInstance()
+        val userId = auth.currentUser?.uid
+
+        userId?.let {
+            firestore.collection("users").document(it)
+                .update("profilePictureUrl", url)
+                .addOnSuccessListener {
+                    _user.value = _user.value?.copy(profilePictureUrl = url)
                 }
                 .addOnFailureListener {
                     // Handle failure

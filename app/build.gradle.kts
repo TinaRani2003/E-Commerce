@@ -70,6 +70,7 @@ dependencies {
     implementation(libs.billing.ktx)
     implementation(libs.androidx.room.common)
     implementation(libs.androidx.runtime.livedata)
+    implementation(libs.firebase.storage.ktx)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
@@ -99,7 +100,26 @@ dependencies {
         implementation ("androidx.compose.material3:material3-window-size-class:1.2.1")
 
     implementation (libs.ui)
-   
+
+    // Accompanist permissions
+    implementation (libs.accompanist.permissions)
+
+    // Coil for image loading
+    implementation (libs.coil.compose.v260)
+
+        // Firebase libraries
+    implementation (platform(libs.firebase.bom.v3020))
+    implementation (libs.firebase.auth)
+    implementation (libs.firebase.firestore)
+    implementation (libs.firebase.storage)
+
+    // Other Jetpack Compose dependencies
+    implementation (libs.androidx.material3.v110)
+    implementation (libs.androidx.activity.compose.v151)
+
+    implementation (libs.androidx.runtime.livedata)
+
+
 
 
 
