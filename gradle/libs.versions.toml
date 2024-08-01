@@ -1,7 +1,7 @@
 [versions]
 accompanistPermissions = "0.24.13-rc"
 activityComposeVersion = "1.5.1"
-agp = "8.5.0"
+agp = "8.5.1"
 coilCompose = "1.4.0"
 coilComposeVersion = "2.6.0"
 composeBomVersion = "2024.06.00"

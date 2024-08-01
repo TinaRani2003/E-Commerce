@@ -4,6 +4,7 @@ import android.widget.Toast
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.AccountCircle
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Category
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Notifications
@@ -26,8 +27,10 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.e_commerce.ui.theme.BlueDark
+import java.lang.reflect.Modifier
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
@@ -159,3 +162,19 @@ data class BottomNavItem(
     val hasNews: Boolean,
     val badges: Int
 )
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun TopBackBar(title: String, navController: NavHostController) {
+    TopAppBar(
+        title = { Text(title) },
+        navigationIcon = {
+            IconButton(onClick = { navController.popBackStack() }) {
+                Icon(
+                    imageVector = Icons.Filled.ArrowBack,
+                    contentDescription = "Back"
+                )
+            }
+        }
+    )
+}

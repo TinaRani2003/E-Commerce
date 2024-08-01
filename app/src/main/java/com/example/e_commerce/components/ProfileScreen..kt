@@ -5,7 +5,6 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.net.Uri
 import android.provider.MediaStore
-import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
@@ -13,6 +12,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
@@ -99,7 +100,9 @@ fun ProfileScreen(navController: NavHostController, userSessionViewModel: UserSe
             }
 
             ProfileSectionItem("My Orders", "Check orders") { /* Handle click */ }
-            ProfileSectionItem("Profile Info", "View informations") { /* Handle click */ }
+            ProfileSectionItem("Profile Info", "View information") {
+                navController.navigate("profileInfo")
+            }
             ProfileSectionItem("Settings", "Notifications, update") { /* Handle click */ }
 
             Spacer(modifier = Modifier.height(16.dp))
@@ -187,7 +190,6 @@ fun HandleImageSelection(
     }
 }
 
-
 private suspend fun uploadImageToFirebaseStorage(
     storage: FirebaseStorage,
     uri: Uri
@@ -196,20 +198,14 @@ private suspend fun uploadImageToFirebaseStorage(
         val fileName = uri.lastPathSegment ?: "default_name"
         val storageRef = storage.reference.child("profile_pictures/$fileName")
 
-        // Log the file name and path
-        Log.d("FirebaseStorage", "Uploading to path: ${storageRef.path}")
-
         val uploadTask = storageRef.putFile(uri).await()
         val downloadUrl = storageRef.downloadUrl.await()
 
-        Log.d("FirebaseStorage", "Upload successful, URL: $downloadUrl")
         downloadUrl
     } catch (e: Exception) {
-        Log.e("FirebaseStorage", "Upload failed", e)
         null
     }
 }
-
 
 private fun saveBitmapToUri(context: Context, bitmap: Bitmap): Uri {
     val bytes = ByteArrayOutputStream()
@@ -221,7 +217,6 @@ private fun saveBitmapToUri(context: Context, bitmap: Bitmap): Uri {
 @Composable
 fun AccountSettings(navController: NavHostController, userSessionViewModel: UserSessionViewModel) {
     Column {
-//        AccountSettingsItem("Change Password", onClick = { /* Handle Change Password */ })
         AccountSettingsItem("Logout", onClick = {
             userSessionViewModel.logout {
                 navController.navigate("login") {

@@ -1,5 +1,6 @@
 package com.example.e_commerce
 
+
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -42,6 +43,7 @@ fun ECommerceApp(productViewModel: ProductViewModel, cartViewModel: CartViewMode
             composable("categories") { CategoryScreen(navController, productViewModel) }
             composable("cart") { CartScreen(navController, cartViewModel) }
             composable("profile") { ProfileScreen(navController, userSessionViewModel) }
+            composable("profileInfo") { ProfileInfoScreen(navController, userSessionViewModel) }
             composable("product_details/{productId}") { backStackEntry ->
                 val productId = backStackEntry.arguments?.getString("productId")
                 val product = productViewModel.getProductById(productId)
