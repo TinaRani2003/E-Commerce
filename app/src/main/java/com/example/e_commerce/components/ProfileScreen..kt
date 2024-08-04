@@ -103,7 +103,7 @@ fun ProfileScreen(navController: NavHostController, userSessionViewModel: UserSe
             ProfileSectionItem("Profile Info", "View information") {
                 navController.navigate("profileInfo")
             }
-            ProfileSectionItem("Settings", "Notifications, update") { /* Handle click */ }
+            ProfileSectionItem("Settings", "Logout") { /* Handle click */ }
 
             Spacer(modifier = Modifier.height(16.dp))
 
