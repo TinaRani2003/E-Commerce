@@ -9,7 +9,19 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.e_commerce.components.*
+import com.example.e_commerce.components.CartScreen
+import com.example.e_commerce.components.CategoryScreen
+import com.example.e_commerce.components.ForgotPasswordScreen
+import com.example.e_commerce.components.HomeScreen
+import com.example.e_commerce.components.LoginScreen
+import com.example.e_commerce.components.PaymentConfirmationScreen
+import com.example.e_commerce.components.PaymentScreen
+import com.example.e_commerce.components.ProductDetails
+import com.example.e_commerce.components.ProfileInfoScreen
+import com.example.e_commerce.components.ProfileScreen
+import com.example.e_commerce.components.SignupScreen
+import com.example.e_commerce.components.UserSessionViewModel
+import com.example.e_commerce.components.WelcomeScreen
 import com.example.e_commerce.ui.theme.ECommerceTheme
 import com.example.e_commerce.viewmodel.CartViewModel
 import com.example.e_commerce.viewmodel.ProductViewModel
@@ -38,7 +50,7 @@ fun ECommerceApp(productViewModel: ProductViewModel, cartViewModel: CartViewMode
             composable("welcome") { WelcomeScreen(navController) }
             composable("signup") { SignupScreen(navController) }
             composable("login") { LoginScreen(navController) }
-            composable("forgot password") { ForgotPasswordScreen(navController) }
+            composable("forgotpassword") { ForgotPasswordScreen(navController) }
             composable("home") { HomeScreen(navController) }
             composable("categories") { CategoryScreen(navController, productViewModel) }
             composable("cart") { CartScreen(navController, cartViewModel) }
